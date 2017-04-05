@@ -18,7 +18,7 @@ if(ZaloPay.isZaloPay) {
 }
 ```
 
-(function) showLoading
+(function) showLoading<br />
 (function) hideLoading
 ```js
 ZaloPay.showLoading();
