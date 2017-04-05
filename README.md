@@ -43,16 +43,18 @@ ZaloPay.transferMoney({
     zpid: "cuongbm2",
     amount: 20000,
     message: "Transaction_171231_1"
-}, function(data) {
-if(typeof data === "object") {
+}, callback);
+function callback(data) {
     if(typeof data === "object") {
-        if(data.error === 1) {
-            alert("Zalo Pay Callback: transferMoney Successed");
-        } else if(data.error === 4) {
-            alert("Zalo Pay Callback: User Canceled");
-        } else {
-            alert("Zalo Pay Callback: transferMoney Failed with code " + data.errorCode);
+        if(typeof data === "object") {
+            if(data.error === 1) {
+                alert("Zalo Pay Callback: transferMoney Successed");
+            } else if(data.error === 4) {
+                alert("Zalo Pay Callback: User Canceled");
+            } else {
+                alert("Zalo Pay Callback: transferMoney Failed with code " + data.errorCode);
+            }
         }
     }
-});
+}
 ```
