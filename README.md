@@ -37,6 +37,11 @@ ZaloPay.showDialog({
 });
 ```
 
+(function) closeWindow
+```js
+ZaloPay.closeWindow();
+```
+
 (function) transferMoney
 ```js
 ZaloPay.transferMoney({
@@ -57,4 +62,27 @@ function callback(data) {
         }
     }
 }
+```
+
+(function) payOrder with full order information
+```js
+ZaloPay.payOrder({
+    appid: 3,
+    appuser: "pmqc",
+    apptime: 1486713401300,
+    amount: 20000,
+    apptransid: 170210144922653,
+    embeddata: "embeddata123",
+    item: "item123",
+    description: "description123",
+    mac: "5815251181fcf7d80d056ec8298f81dcc1654eb9edb3c19a961ef43eb129c307"
+}, cb);
+```
+
+(function) payOrder with minify order information
+```js
+ZaloPay.payOrder({
+    appid: 3,
+    zptranstoken: "gOAWGD_NK4DFoq0mTA0iTw"
+}, cb);
 ```
