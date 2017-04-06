@@ -1,6 +1,6 @@
 # zalopay v1.0.0
 
-[ZaloPay](https://zalopay.com.vn) - Thanh toán trong 2 giây
+[ZaloPay](https://zalopay.com.vn) - Pay in 2 seconds
 
 ## Install
 
