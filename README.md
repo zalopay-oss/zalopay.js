@@ -86,7 +86,6 @@ ZaloPay.payOrder({
     zptranstoken: "gOAWGD_NK4DFoq0mTA0iTw"
 }, cb);
 ```
-```
 
 (function) promotionEvent: open in-app ZaloPay or open another apps
 ```js
