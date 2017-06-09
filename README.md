@@ -1,4 +1,4 @@
-# zalopay v1.0.0
+# zalopay v1.0.1
 
 [ZaloPay](https://zalopay.com.vn) - Pay in 2 seconds
 
@@ -85,4 +85,14 @@ ZaloPay.payOrder({
     appid: 3,
     zptranstoken: "gOAWGD_NK4DFoq0mTA0iTw"
 }, cb);
+```
+```
+
+(function) promotionEvent: open in-app ZaloPay or open another apps
+```js
+ZaloPay.promotionEvent({
+    promotion: 1,
+    url: "zalo://launch?params=1",
+    packageId: "com.zing.zalo"
+});
 ```
