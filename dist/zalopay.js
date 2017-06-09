@@ -240,10 +240,7 @@
         "showLoading",
         "hideLoading",
         "closeWindow",
-        "showDialog",
-        "payOrder",
-        "transferMoney",
-        "promotionEvent"
+        "showDialog"
     ]).forEach(function (methodName) {
         ZaloPay[methodName] = function () {
             var args = [].slice.call(arguments);
@@ -290,7 +287,7 @@
                 break;
             case "warn":
                 arg.splice(0,1);
-                arg.length === 1 ? console.warn(time, arg[0]) : console.warn(time, arg);
+                arg.length === 1 ? console.error(time, arg[0]) : console.error(time, arg);
                 break;
             case "info":
                 arg.splice(0,1);
