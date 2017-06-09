@@ -1,3 +1,4 @@
+/*! zalopay 09-06-2017 */
 (function (root, factory) {
     if (typeof module !== "undefined" && module.exports) {
         module.exports = factory();
@@ -185,6 +186,32 @@
         }
         writeLog("error", "ZaloPay.transferMoney", "Received missing require param!");
     };
+    
+    /**
+     * ZaloPay.promotionEvent({
+     *    promotion: 1,
+     *    url: "zalo://launch?params=1",
+     *    packageId: "com.zing.zalo"
+     * });
+     */
+    //ZaloPay.promotionEvent({promotion:1,url:'zalo://launch?params=1',packageId:'com.zing.zalo'});
+    ZaloPay.promotionEvent = function (opt) {
+        if(!isObj(opt)) {
+            writeLog("error", "ZaloPay.promotionEvent", "Received invalid object");
+            return;
+        }
+        if(isNumber(opt.promotion) && isStr(opt.url) && isStr(opt.packageId)) {
+            opt = {
+                promotion: opt.promotion,
+                url: opt.url,
+                packageId: opt.packageId
+            };
+            writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
+            ZaloPay.call("promotionEvent", opt);
+            return;
+        }
+        writeLog("error", "ZaloPay.transferMoney", "Received missing require param!");
+    };
 
     ZaloPay.requestAnimationFrame = function (cb) {
         var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
@@ -213,7 +240,10 @@
         "showLoading",
         "hideLoading",
         "closeWindow",
-        "showDialog"
+        "showDialog",
+        "payOrder",
+        "transferMoney",
+        "promotionEvent"
     ]).forEach(function (methodName) {
         ZaloPay[methodName] = function () {
             var args = [].slice.call(arguments);
