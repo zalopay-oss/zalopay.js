@@ -87,11 +87,19 @@ ZaloPay.payOrder({
 }, cb);
 ```
 
-(function) promotionEvent: open in-app ZaloPay or open another apps
+(function) promotionEvent: open another apps
 ```js
 ZaloPay.promotionEvent({
-    promotion: 1,
+    campaignId: 1,
     url: "zalo://launch?params=1",
     packageId: "com.zing.zalo"
+});
+```
+
+(function) promotionEvent: open Zalo Pay apps
+```js
+ZaloPay.promotionEvent({
+    campaignId: 1,
+    internalApp: 12
 });
 ```
