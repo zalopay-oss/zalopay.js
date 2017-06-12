@@ -189,20 +189,32 @@
     
     /**
      * ZaloPay.promotionEvent({
-     *    promotion: 1,
+     *    campaignId: 1,
      *    url: "zalo://launch?params=1",
      *    packageId: "com.zing.zalo"
      * });
+     *
+     * ZaloPay.promotionEvent({
+     *    campaignId: 2,
+     *    internalApp: 12
+     * });
      */
-    //ZaloPay.promotionEvent({promotion:1,url:'zalo://launch?params=1',packageId:'com.zing.zalo'});
     ZaloPay.promotionEvent = function (opt) {
         if(!isObj(opt)) {
             writeLog("error", "ZaloPay.promotionEvent", "Received invalid object");
             return;
         }
-        if(isNumber(opt.promotion) && isStr(opt.url) && isStr(opt.packageId)) {
+        if(isNumber(opt.campaignId) && isNumber(opt.internalApp)) {
             opt = {
-                promotion: opt.promotion,
+                campaignId: opt.campaignId,
+                internalApp: opt.internalApp
+            }
+            writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
+            ZaloPay.call("promotionEvent", opt);
+            return;
+        } else if(isNumber(opt.campaignId) && isStr(opt.url) && isStr(opt.packageId)) {
+            opt = {
+                campaignId: opt.campaignId,
                 url: opt.url,
                 packageId: opt.packageId
             };
@@ -210,7 +222,7 @@
             ZaloPay.call("promotionEvent", opt);
             return;
         }
-        writeLog("error", "ZaloPay.transferMoney", "Received missing require param!");
+        writeLog("error", "ZaloPay.transferMoney", "Received missing require param!", opt);
     };
 
     ZaloPay.requestAnimationFrame = function (cb) {
