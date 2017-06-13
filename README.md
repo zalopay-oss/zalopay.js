@@ -51,14 +51,12 @@ ZaloPay.transferMoney({
 }, callback);
 function callback(data) {
     if(typeof data === "object") {
-        if(typeof data === "object") {
-            if(data.error === 1) {
-                alert("Zalo Pay Callback: transferMoney Successed");
-            } else if(data.error === 4) {
-                alert("Zalo Pay Callback: User Canceled");
-            } else {
-                alert("Zalo Pay Callback: transferMoney Failed with code " + data.errorCode);
-            }
+        if(data.error === 1) {
+            alert("Zalo Pay Callback: transferMoney Successed");
+        } else if(data.error === 4) {
+            alert("Zalo Pay Callback: User Canceled");
+        } else {
+            alert("Zalo Pay Callback: transferMoney Failed with code " + data.errorCode);
         }
     }
 }
@@ -93,7 +91,18 @@ ZaloPay.promotionEvent({
     campaignId: 1,
     url: "zalo://launch?params=1",
     packageId: "com.zing.zalo"
-});
+}, callback);
+function callback(data) {
+    if(typeof data === "object") {
+        if(data.code === 1) {
+            console.log("Success");
+        } else if(data.code === 0 || data.code === -1) {
+            console.log("Not exist app");
+        } else {
+            console.log("Unknown exception");
+        }
+    }
+}
 ```
 
 (function) promotionEvent: open Zalo Pay apps
@@ -101,5 +110,16 @@ ZaloPay.promotionEvent({
 ZaloPay.promotionEvent({
     campaignId: 1,
     internalApp: 12
-});
+}, callback);
+function callback(data) {
+    if(typeof data === "object") {
+        if(data.code === 1) {
+            console.log("Success");
+        } else if(data.code === 0 || data.code === -1) {
+            console.log("Not exist app");
+        } else {
+            console.log("Unknown exception");
+        }
+    }
+}
 ```
