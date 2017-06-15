@@ -105,12 +105,38 @@
      * });
      */
     ZaloPay.showDialog = function (opt) {
-        opt = {
-            title: opt.title,
-            message: opt.message,
-            button: opt.button
-        };
-        ZaloPay.call("showDialog", opt);
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.showDialog", "Received invalid object");
+            return;
+        }
+        if (isStr(opt.title) && isStr(opt.message) && isStr(opt.button)) {
+            opt = {
+                title: opt.title,
+                message: opt.message,
+                button: opt.button
+            };
+            ZaloPay.call("showDialog", opt);
+        }
+    };
+
+    /**
+     * ZaloPay.pushView({
+     *    url: "https://zalopay.vn/"
+     * });
+     */
+    ZaloPay.pushView = function (opt) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.pushView", "Received invalid object");
+            return;
+        }
+        if (isStr(opt.url)) {
+            opt = {
+                url: opt.url
+            };
+            ZaloPay.call("pushView", opt);
+            return;
+        }
+        writeLog("error", "ZaloPay.pushView", "Received missing require param!");
     };
 
     /**
@@ -131,11 +157,11 @@
      * }, cb);
      */
     ZaloPay.payOrder = function (opt, cb) {
-        if(!isObj(opt)) {
+        if (!isObj(opt)) {
             writeLog("error", "ZaloPay.payOrder", "Received invalid object");
             return;
         }
-        if(isStr(opt.zptranstoken)) {
+        if (isStr(opt.zptranstoken)) {
             opt = {
                 zptranstoken: opt.zptranstoken,
                 appid: opt.appid
@@ -143,7 +169,7 @@
             writeLog("info", "ZaloPay.payOrder", "Received zptranstoken", opt);
             ZaloPay.call("payOrder", opt, cb);
             return;
-        } else if(isStr(opt.mac)) {
+        } else if (isStr(opt.mac)) {
             opt = {
                 appid: opt.appid,
                 appuser: opt.appuser,
@@ -161,7 +187,7 @@
         }
         writeLog("error", "ZaloPay.payOrder", "Received missing require param!");
     };
-    
+
     /**
      * ZaloPay.transferMoney({
      *    zpid: "hoanh",
@@ -170,11 +196,11 @@
      * }, cb);
      */
     ZaloPay.transferMoney = function (opt, cb) {
-        if(!isObj(opt)) {
+        if (!isObj(opt)) {
             writeLog("error", "ZaloPay.transferMoney", "Received invalid object");
             return;
         }
-        if(isStr(opt.zpid) && isStr(opt.message) && isNumber(opt.amount)) {
+        if (isStr(opt.zpid) && isStr(opt.message) && isNumber(opt.amount)) {
             opt = {
                 zpid: opt.zpid,
                 amount: opt.amount,
@@ -186,7 +212,7 @@
         }
         writeLog("error", "ZaloPay.transferMoney", "Received missing require param!");
     };
-    
+
     /**
      * ZaloPay.promotionEvent({
      *    campaignId: 1,
@@ -200,11 +226,11 @@
      * });
      */
     ZaloPay.promotionEvent = function (opt) {
-        if(!isObj(opt)) {
+        if (!isObj(opt)) {
             writeLog("error", "ZaloPay.promotionEvent", "Received invalid object");
             return;
         }
-        if(isNumber(opt.campaignId) && isNumber(opt.internalApp)) {
+        if (isNumber(opt.campaignId) && isNumber(opt.internalApp)) {
             opt = {
                 campaignId: opt.campaignId,
                 internalApp: opt.internalApp
@@ -212,7 +238,7 @@
             writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
             ZaloPay.call("promotionEvent", opt);
             return;
-        } else if(isNumber(opt.campaignId) && isStr(opt.url) && isStr(opt.packageId)) {
+        } else if (isNumber(opt.campaignId) && isStr(opt.url) && isStr(opt.packageId)) {
             opt = {
                 campaignId: opt.campaignId,
                 url: opt.url,
@@ -237,14 +263,14 @@
     ZaloPay._ready(function () {
         writeLog("info", "ZaloPayJS Ready!");
         var apiQueue = ZaloPay._apiQueue || [];
+
         function next() {
             ZaloPay.requestAnimationFrame(function () {
                 var args = apiQueue.shift();
                 ZaloPay.call.apply(null, args);
                 if (apiQueue.length) next();
             });
-        }
-        !!apiQueue.length && next();
+        }!!apiQueue.length && next();
     });
 
     ([
@@ -252,7 +278,8 @@
         "showLoading",
         "hideLoading",
         "closeWindow",
-        "showDialog"
+        "showDialog",
+        "pushView"
     ]).forEach(function (methodName) {
         ZaloPay[methodName] = function () {
             var args = [].slice.call(arguments);
@@ -287,22 +314,22 @@
     function type(obj) {
         return Object.prototype.toString.call(obj).replace(/\[object (\w+)\]/, '$1').toLowerCase();
     }
-    
+
     function writeLog() {
         var time = (+new Date());
         var arg = [].slice.call(arguments);
         var type = arg[0].toLowerCase().trim();
         switch (type) {
             case "error":
-                arg.splice(0,1);
+                arg.splice(0, 1);
                 arg.length === 1 ? console.error(time, arg[0]) : console.error(time, arg);
                 break;
             case "warn":
-                arg.splice(0,1);
-                arg.length === 1 ? console.error(time, arg[0]) : console.error(time, arg);
+                arg.splice(0, 1);
+                arg.length === 1 ? console.warn(time, arg[0]) : console.warn(time, arg);
                 break;
             case "info":
-                arg.splice(0,1);
+                arg.splice(0, 1);
                 arg.length === 1 ? console.log(time, arg[0]) : console.log(time, arg);
                 break;
             default:
@@ -310,7 +337,7 @@
                 arg.length === 1 ? console.log(time, arg[0]) : console.log(time, arg);
                 break;
         }
-        if(ZaloPay.isDebug && ZaloPay.call && window.ZaloPayJSBridge && window.ZaloPayJSBridge.call) {
+        if (ZaloPay.isDebug && ZaloPay.call && window.ZaloPayJSBridge && window.ZaloPayJSBridge.call) {
             var opt = {
                 type: type,
                 time: time,
