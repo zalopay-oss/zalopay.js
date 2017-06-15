@@ -37,6 +37,13 @@ ZaloPay.showDialog({
 });
 ```
 
+(function) pushView
+```js
+ZaloPay.pushView({
+    url: "https://zalopay.vn/"
+});
+```
+
 (function) closeWindow
 ```js
 ZaloPay.closeWindow();
