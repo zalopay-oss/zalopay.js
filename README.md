@@ -97,7 +97,8 @@ ZaloPay.payOrder({
 ZaloPay.promotionEvent({
     campaignId: 1,
     url: "zalo://launch?params=1",
-    packageId: "com.zing.zalo"
+    packageId: "com.zing.zalo",
+    alternateUrl: "https://vng.com.vn"
 }, callback);
 function callback(data) {
     if(typeof data === "object") {
@@ -116,7 +117,8 @@ function callback(data) {
 ```js
 ZaloPay.promotionEvent({
     campaignId: 1,
-    internalApp: 12
+    internalApp: 12,
+    alternateUrl: "https://vng.com.vn"
 }, callback);
 function callback(data) {
     if(typeof data === "object") {
