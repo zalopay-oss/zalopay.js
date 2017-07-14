@@ -233,7 +233,8 @@
         if (isNumber(opt.campaignId) && isNumber(opt.internalApp)) {
             opt = {
                 campaignId: opt.campaignId,
-                internalApp: opt.internalApp
+                internalApp: opt.internalApp,
+                alternateUrl: opt.alternateUrl
             }
             writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
             ZaloPay.call("promotionEvent", opt);
@@ -242,7 +243,8 @@
             opt = {
                 campaignId: opt.campaignId,
                 url: opt.url,
-                packageId: opt.packageId
+                packageId: opt.packageId,
+                alternateUrl: opt.alternateUrl
             };
             writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
             ZaloPay.call("promotionEvent", opt);
