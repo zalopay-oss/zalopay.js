@@ -132,3 +132,23 @@ function callback(data) {
     }
 }
 ```
+
+(function) setProperty: set color and background color for navigator
+```js
+ZaloPay.setProperty({
+    navigation: {
+        backgroundColor: "#c7c7cc", titleColor: "#000000"
+    }
+});
+```
+
+(function) setToolbarActions: set icon action in navigator
+```js
+ZaloPay.setToolbarActions([
+    { iconId: "clickIcon1", iconName: "personal_settingaccount", iconColor: "#000000" },
+    { iconId: "clickIcon2", iconLink: "https://cdn0.iconfinder.com/data/icons/entypo/92/button2-48.png" }
+], navigatorAction);
+function navigatorAction(type) {
+    alert(JSON.stringify(type));
+}
+```

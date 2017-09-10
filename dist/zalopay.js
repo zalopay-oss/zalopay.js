@@ -41,8 +41,8 @@
         var args = [].slice.call(arguments);
         if (window.ZaloPayJSBridge && window.ZaloPayJSBridge.call) {
             var name = args[0],
-                opt = args[1] || {},
-                cb = args[2];
+                    opt = args[1] || {},
+                    cb = args[2];
             if (!isStr(name)) {
                 writeLog("error", "ZaloPay.call", "Request undefined function!");
                 return;
@@ -103,6 +103,17 @@
      *    message: "Test",
      *    button: "OK"
      * });
+     * NORMAL_TYPE = 0;
+     * ERROR_TYPE = 1;
+     * SUCCESS_TYPE = 2;
+     * WARNING_TYPE = 3;
+     * INFO_NO_ICON = 4;
+     * PROGRESS_TYPE = 5;
+     * UPDATE_TYPE = 6;
+     * INFO_TYPE = 7;
+     * CUSTOM_CONTENT_VIEW = 8;
+     * UPDATE = 9;
+     * NO_INTERNET = 10;
      */
     ZaloPay.showDialog = function (opt) {
         if (!isObj(opt)) {
@@ -111,6 +122,7 @@
         }
         if (isStr(opt.title) && isStr(opt.message) && isStr(opt.button)) {
             opt = {
+                type: 2,
                 title: opt.title,
                 message: opt.message,
                 button: opt.button
@@ -253,6 +265,66 @@
         writeLog("error", "ZaloPay.transferMoney", "Received missing require param!", opt);
     };
 
+    /**
+     * ZaloPay.setProperty({
+     *     navigation: {
+     *         backgroundColor: "#c7c7cc", titleColor: "#000000"
+     *     }
+     * });
+     */
+    ZaloPay.setProperty = function (opt, cb) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.setProperty", "Received invalid object");
+            return;
+        }
+        writeLog("info", "ZaloPay.setProperty", "Received navigator", opt);
+        if (isFn(cb)) {
+            ZaloPay.call("setProperty", opt, cb);
+        } else {
+            ZaloPay.call("setProperty", opt);
+        }
+        return;
+    };
+
+    /**
+     * ZaloPay.setToolbarActions([{
+     *    iconId: "1",
+     *    iconName: "personal_settingaccount",
+     *    iconColor: "#000000"
+     * },{
+     *    iconId: "2",
+     *    iconLink: "https://cdn0.iconfinder.com/data/icons/entypo/92/button2-48.png"
+     * }]);
+     */
+    ZaloPay.setToolbarActions = function (opt, cb) {
+        if (!isArr(opt) || opt.length < 1 || !isFn(cb)) {
+            writeLog("error", "ZaloPay.setToolbarActions", "Received invalid object");
+            return;
+        }
+        var options = [];
+        opt.forEach(function (v, k) {
+            if (isStr(v.iconId)) {
+                if (isStr(v.iconLink)) {
+                    options.push({iconId: v.iconId, func: cb.name, iconLink: v.iconLink, iconName: "", iconColor: ""});
+                } else {
+                    if (isStr(v.iconName)) {
+                        if (isStr(v.iconColor)) {
+                            options.push({iconId: v.iconId, func: cb.name, iconLink: "", iconName: v.iconName, iconColor: v.iconColor});
+                        } else {
+                            options.push({iconId: v.iconId, func: cb.name, iconLink: "", iconName: v.iconName, iconColor: ""});
+                        }
+                    }
+                }
+            }
+        });
+        if (options.length > 0) {
+            ZaloPay.call("setToolbarActions", {data: options});
+            document.addEventListener(cb.name, cb, false);
+            return;
+        }
+        writeLog("error", "ZaloPay.setToolbarActions", "Received missing require param!", opt);
+    };
+
     ZaloPay.requestAnimationFrame = function (cb) {
         var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
         if (raf) {
@@ -270,9 +342,11 @@
             ZaloPay.requestAnimationFrame(function () {
                 var args = apiQueue.shift();
                 ZaloPay.call.apply(null, args);
-                if (apiQueue.length) next();
+                if (apiQueue.length)
+                    next();
             });
-        }!!apiQueue.length && next();
+        }
+        !!apiQueue.length && next();
     });
 
     ([
@@ -295,6 +369,10 @@
 
     function isIOS() {
         return (/iphone|ipad|ipod/i).test(ZaloPay.ua);
+    }
+
+    function isArr(fn) {
+        return 'array' === type(fn);
     }
 
     function isFn(fn) {
@@ -366,8 +444,10 @@
         for (var i = 0, n1, n2; i < appVersion.length; i++) {
             n1 = parseInt(targetVersion[i], 10) || 0;
             n2 = parseInt(appVersion[i], 10) || 0;
-            if (n1 > n2) return -1;
-            if (n1 < n2) return 1;
+            if (n1 > n2)
+                return -1;
+            if (n1 < n2)
+                return 1;
         }
         return 0;
     }
