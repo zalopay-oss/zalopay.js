@@ -331,17 +331,13 @@
      * });
      */
     ZaloPay.getUserInfo = function (opt, cb) {
-        if (!isObj(opt)) {
+        if (!isArr(opt) || opt.length < 1 || !isFn(cb)) {
             writeLog("error", "ZaloPay.getUserInfo", "Received invalid object");
             return;
         }
-        writeLog("info", "ZaloPay.getUserInfo", "Received navigator", opt);
-        if (isFn(cb)) {
-            ZaloPay.call("getUserInfo", opt, cb);
-        } else {
-            ZaloPay.call("getUserInfo", opt);
-        }
-        return;
+        ZaloPay.call("getUserInfo", {data: options});
+        document.addEventListener(cb.name, cb, false);
+        writeLog("error", "ZaloPay.getUserInfo", "Received missing require param!", opt);
     };
 
     ZaloPay.requestAnimationFrame = function (cb) {
