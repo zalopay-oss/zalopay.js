@@ -335,7 +335,7 @@
             writeLog("error", "ZaloPay.getUserInfo", "Received invalid object");
             return;
         }
-        ZaloPay.call("getUserInfo", {data: options});
+        ZaloPay.call("getUserInfo", opt);
         document.addEventListener(cb.name, cb, false);
         writeLog("error", "ZaloPay.getUserInfo", "Received missing require param!", opt);
     };
