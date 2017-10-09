@@ -324,6 +324,25 @@
         }
         writeLog("error", "ZaloPay.setToolbarActions", "Received missing require param!", opt);
     };
+    
+    /**
+     * ZaloPay.getUserInfo({
+     *     callback: "getUserInfo"
+     * });
+     */
+    ZaloPay.getUserInfo = function (opt, cb) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.getUserInfo", "Received invalid object");
+            return;
+        }
+        writeLog("info", "ZaloPay.getUserInfo", "Received navigator", opt);
+        if (isFn(cb)) {
+            ZaloPay.call("getUserInfo", opt, cb);
+        } else {
+            ZaloPay.call("getUserInfo", opt);
+        }
+        return;
+    };
 
     ZaloPay.requestAnimationFrame = function (cb) {
         var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
