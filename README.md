@@ -152,3 +152,19 @@ function navigatorAction(type) {
     alert(JSON.stringify(type));
 }
 ```
+
+(function) getUserInfo: set color and background color for navigator
+```js
+ZaloPay.getUserInfo(
+    callbackGetUserInfo
+);
+function callbackGetUserInfo(data) {
+    if(typeof data === "object") {
+        if(data.error === 1) {
+            alert("Success UserInfo: " + JSON.stringify(data.data));
+        } else {
+            alert("Unknown exception" + JSON.stringify(data.data));
+        }
+    }
+}
+```

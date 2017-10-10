@@ -325,6 +325,18 @@
         writeLog("error", "ZaloPay.setToolbarActions", "Received missing require param!", opt);
     };
 
+    /**
+     * ZaloPay.getUserInfo(cb);
+     */
+    ZaloPay.getUserInfo = function (cb) {
+        if (!isFn(cb)) {
+            writeLog("error", "ZaloPay.getUserInfo", "Received invalid function callback");
+            return;
+        }
+        writeLog("info", "ZaloPay.getUserInfo", "Received UserInfo in function callback");
+        ZaloPay.call("getUserInfo", {}, cb);
+    };
+
     ZaloPay.requestAnimationFrame = function (cb) {
         var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
         if (raf) {
