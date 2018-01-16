@@ -153,10 +153,10 @@ function navigatorAction(type) {
 }
 ```
 
-(function) getUserInfo: set color and background color for navigator
+(function) getUserInfo: get user info of ZaloPay
 ```js
 ZaloPay.getUserInfo(
-    callbackGetUserInfo
+    appid, callbackGetUserInfo
 );
 function callbackGetUserInfo(data) {
     if(typeof data === "object") {

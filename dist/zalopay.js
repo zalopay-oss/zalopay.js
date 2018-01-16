@@ -326,15 +326,15 @@
     };
 
     /**
-     * ZaloPay.getUserInfo(cb);
+     * ZaloPay.getUserInfo(appid, cb);
      */
-    ZaloPay.getUserInfo = function (cb) {
-        if (!isFn(cb)) {
+    ZaloPay.getUserInfo = function (appid, cb) {
+        if (!isFn(cb) || !isNumber(appid)) {
             writeLog("error", "ZaloPay.getUserInfo", "Received invalid function callback");
             return;
         }
         writeLog("info", "ZaloPay.getUserInfo", "Received UserInfo in function callback");
-        ZaloPay.call("getUserInfo", {}, cb);
+        ZaloPay.call("getUserInfo", {appid:appid}, cb);
     };
 
     ZaloPay.requestAnimationFrame = function (cb) {
