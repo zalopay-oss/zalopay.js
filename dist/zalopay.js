@@ -132,6 +132,24 @@
     };
 
     /**
+     * ZaloPay.showToast({
+     *    message: "Test"
+     * });
+     */
+    ZaloPay.showToast = function (opt) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.showToast", "Received invalid object");
+            return;
+        }
+        if (isStr(opt.message)) {
+            opt = {
+                message: opt.message
+            };
+            ZaloPay.call("showToast", opt);
+        }
+    };
+
+    /**
      * ZaloPay.pushView({
      *    url: "https://zalopay.vn/"
      * });
@@ -149,6 +167,30 @@
             return;
         }
         writeLog("error", "ZaloPay.pushView", "Received missing require param!");
+    };
+
+    /**
+     * ZaloPay.share({
+     *    type: 1,
+     *    caption: "caption string",
+     *    content: "content string"
+     * });
+     * SHARE_WITH_SCREENSHOT = 1;
+     * SHARE_MESSAGE = 2;
+     */
+    ZaloPay.share = function (opt) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.share", "Received invalid object");
+            return;
+        }
+        if (isNumber(opt.type) &&  isStr(opt.caption) && isStr(opt.content)) {
+            opt = {
+                type: opt.type,
+                caption: opt.caption,
+                content: opt.content
+            };
+            ZaloPay.call("share", opt);
+        }
     };
 
     /**

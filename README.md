@@ -1,6 +1,6 @@
-# zalopay v1.0.1
+# zalopay v1.0.2
 
-[ZaloPay](https://zalopay.com.vn) - Pay in 2 seconds
+[ZaloPay](https://zalopay.vn) - Pay in 2 seconds
 
 ## Install
 
@@ -37,10 +37,27 @@ ZaloPay.showDialog({
 });
 ```
 
+(function) showToast
+```js
+ZaloPay.showToast({
+    message: "ZaloPay showToast"
+});
+```
+
 (function) pushView
 ```js
 ZaloPay.pushView({
     url: "https://zalopay.vn/"
+});
+```
+
+(function) share<br />
+{type} int[1: screenshot | 2: message]
+```js
+ZaloPay.share({
+    type: 1,
+    caption: "caption string",
+    content: "content string"
 });
 ```
 
