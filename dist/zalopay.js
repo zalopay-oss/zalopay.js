@@ -5,7 +5,7 @@
     } else if (typeof define === "function" && (define.amd || define.cmd)) {
         define(factory);
     } else {
-        root.ant = root.ZaloPay = root.ZaloPay || {};
+        root.ZaloPay = root.ZaloPay || {};
         factory.call(root, root.ZaloPay);
     }
 }(this, function (ZaloPay) {
