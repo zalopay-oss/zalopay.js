@@ -154,7 +154,7 @@
      *   message: "ZaloPay showTooltip",
      *   iconName: "history_ticket",
      *   iconLink: "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
-     *   possition: 0
+     *   position: 0
      * });
      */
     ZaloPay.showTooltip = function (opt) {
@@ -162,13 +162,13 @@
             writeLog("error", "ZaloPay.showTooltip", "Received invalid object");
             return;
         }
-        var p = isNumber(opt.possition) && opt.possition > 1 ? opt.possition : 0;
+        var p = isNumber(opt.position) && opt.position > 1 ? opt.position : 0;
         if (isStr(opt.message) && (isStr(opt.iconName) || isStr(opt.iconLink))) {
             opt = {
                 message: opt.message,
                 iconName: opt.iconName,
                 iconLink: opt.iconLink,
-                possition: p
+                position: p
             };
             ZaloPay.call("showTooltip", opt);
         }
