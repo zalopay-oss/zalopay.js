@@ -5,7 +5,7 @@
     } else if (typeof define === "function" && (define.amd || define.cmd)) {
         define(factory);
     } else {
-        root.ant = root.ZaloPay = root.ZaloPay || {};
+        root.ZaloPay = root.ZaloPay || {};
         factory.call(root, root.ZaloPay);
     }
 }(this, function (ZaloPay) {
@@ -146,6 +146,31 @@
                 message: opt.message
             };
             ZaloPay.call("showToast", opt);
+        }
+    };
+
+    /**
+     * ZaloPay.showTooltip({
+     *   message: "ZaloPay showTooltip",
+     *   iconName: "history_ticket",
+     *   iconLink: "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
+     *   possition: 0
+     * });
+     */
+    ZaloPay.showTooltip = function (opt) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.showTooltip", "Received invalid object");
+            return;
+        }
+        var p = isNumber(opt.possition) && opt.possition > 1 ? opt.possition : 0;
+        if (isStr(opt.message) && (isStr(opt.iconName) || isStr(opt.iconLink))) {
+            opt = {
+                message: opt.message,
+                iconName: opt.iconName,
+                iconLink: opt.iconLink,
+                possition: p
+            };
+            ZaloPay.call("showTooltip", opt);
         }
     };
 

@@ -44,6 +44,16 @@ ZaloPay.showToast({
 });
 ```
 
+(function) showTooltip
+```js
+ZaloPay.showTooltip({
+    message: "ZaloPay showTooltip",
+    iconName: "history_ticket",
+    iconLink: "https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
+    possition: 0
+});
+```
+
 (function) pushView
 ```js
 ZaloPay.pushView({
