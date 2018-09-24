@@ -193,7 +193,47 @@
         }
         writeLog("error", "ZaloPay.pushView", "Received missing require param!");
     };
-
+    
+    /**
+     * ZaloPay.launch({
+     *    func: "startKYC"
+     * });
+     */
+    ZaloPay.launch = function (opt) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.launch", "Received invalid object");
+            return;
+        }
+        if (isStr(opt.func)) {
+            opt = {
+                func: opt.func
+            };
+            ZaloPay.call("launch", opt);
+            return;
+        }
+        writeLog("error", "ZaloPay.launch", "Received missing require param!");
+    };
+    
+    /**
+     * ZaloPay.showZaloPayFriend({
+     *    func: "startKYC"
+     * });
+     */
+    ZaloPay.showZaloPayFriend = function (opt) {
+        if (!isObj(opt)) {
+            writeLog("error", "ZaloPay.showZaloPayFriend", "Received invalid object");
+            return;
+        }
+        if (isArr(opt.listFriend)) {
+            opt = {
+                listFriend: opt.listFriend
+            };
+            ZaloPay.call("showZaloPayFriend", opt);
+            return;
+        }
+        writeLog("error", "ZaloPay.showZaloPayFriend", "Received missing require param!");
+    };
+    
     /**
      * ZaloPay.share({
      *    type: 1,

@@ -1,4 +1,4 @@
-# zalopay v1.0.2
+# zalopay v1.0.3
 
 [ZaloPay](https://zalopay.vn) - Pay in 2 seconds
 
@@ -58,6 +58,25 @@ ZaloPay.showTooltip({
 ```js
 ZaloPay.pushView({
     url: "https://zalopay.vn/"
+});
+```
+
+(function) launch
+```js
+ZaloPay.launch({
+    func: "startKYC"
+});
+```
+
+(function) showZaloPayFriend
+```js
+ZaloPay.showZaloPayFriend({
+    listFriend: [
+        "180405000000006",
+        "180405000000007",
+        "180405000000004",
+        "180405000000005"
+    ]
 });
 ```
 
