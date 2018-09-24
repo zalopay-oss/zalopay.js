@@ -61,25 +61,6 @@ ZaloPay.pushView({
 });
 ```
 
-(function) launch
-```js
-ZaloPay.launch({
-    func: "startKYC"
-});
-```
-
-(function) showZaloPayFriend
-```js
-ZaloPay.showZaloPayFriend({
-    listFriend: [
-        "180405000000006",
-        "180405000000007",
-        "180405000000004",
-        "180405000000005"
-    ]
-});
-```
-
 (function) share<br />
 {type} int[1: screenshot | 2: message]
 ```js
