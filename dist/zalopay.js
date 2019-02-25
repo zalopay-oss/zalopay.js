@@ -64,8 +64,12 @@
             window.ZaloPayJSBridge.call(name, opt, cb);
         } else {
             var deeplinks = args[1].deeplinks;
+            var internalApp = args[1].internalApp;
             if (deeplinks && isStr(deeplinks)) {
                 window.location.href = deeplinks;
+            } else if (isNumber(internalApp)) {
+                window.location.href = "https://zalopay.com.vn/openapp/openapp.html?type=app&appid=" + internalApp;
+                return;
             }
             ZaloPay._apiQueue = ZaloPay._apiQueue || [];
             ZaloPay._apiQueue.push(args);
