@@ -126,6 +126,7 @@ ZaloPay.promotionEvent({
     url: "zalo://launch?params=1",
     packageId: "com.zing.zalo",
     alternateUrl: "https://vng.com.vn"
+    deeplinks: (optional) "{deeplinksURL}"
 }, callback);
 function callback(data) {
     if(typeof data === "object") {
@@ -142,10 +143,12 @@ function callback(data) {
 
 (function) promotionEvent: open Zalo Pay apps
 ```js
+
 ZaloPay.promotionEvent({
     campaignId: 1,
     internalApp: 12,
-    alternateUrl: "https://vng.com.vn"
+    alternateUrl: "https://vng.com.vn",
+    deeplinks: (optional) "{deeplinksURL}"
 }, callback);
 function callback(data) {
     if(typeof data === "object") {

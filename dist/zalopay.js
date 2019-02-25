@@ -1,4 +1,4 @@
-/*! zalopay 09-06-2017 */
+/*! zalopay 25-02-2018 */
 (function (root, factory) {
     if (typeof module !== "undefined" && module.exports) {
         module.exports = factory();
@@ -63,6 +63,10 @@
             "writeLog" !== name && writeLog("info", 'ZaloPayJSBridge.call', name, opt, _callback);
             window.ZaloPayJSBridge.call(name, opt, cb);
         } else {
+            var deeplinks = args[1].deeplinks;
+            if (deeplinks && isStr(deeplinks)) {
+                window.location.href = deeplinks;
+            }
             ZaloPay._apiQueue = ZaloPay._apiQueue || [];
             ZaloPay._apiQueue.push(args);
         }
@@ -296,7 +300,8 @@
      * ZaloPay.promotionEvent({
      *    campaignId: 1,
      *    url: "zalo://launch?params=1",
-     *    packageId: "com.zing.zalo"
+     *    packageId: "com.zing.zalo",
+     *    deeplinks: (optional) "https://zalopay.com.vn/openapp/openapp.html?type=app&appid=61"
      * });
      *
      * ZaloPay.promotionEvent({
@@ -313,7 +318,8 @@
             opt = {
                 campaignId: opt.campaignId,
                 internalApp: opt.internalApp,
-                alternateUrl: opt.alternateUrl
+                alternateUrl: opt.alternateUrl,
+                deeplinks: opt.deeplinks
             }
             writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
             ZaloPay.call("promotionEvent", opt);
@@ -323,7 +329,8 @@
                 campaignId: opt.campaignId,
                 url: opt.url,
                 packageId: opt.packageId,
-                alternateUrl: opt.alternateUrl
+                alternateUrl: opt.alternateUrl,
+                deeplinks: opt.deeplinks
             };
             writeLog("info", "ZaloPay.promotionEvent", "Received promotionEvent", opt);
             ZaloPay.call("promotionEvent", opt);
