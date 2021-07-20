@@ -427,6 +427,10 @@
         }
     };
 
+    ZaloPay.isSSOSupported = function (appid) {
+        return ZaloPay.isZaloPay && compareVersion("6.6.0") > 0
+    }
+
     ZaloPay._ready(function () {
         writeLog("info", "ZaloPayJS Ready!");
         var apiQueue = ZaloPay._apiQueue || [];

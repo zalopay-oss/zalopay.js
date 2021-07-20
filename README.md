@@ -1,4 +1,4 @@
-# zalopay v1.0.3
+# zalopay v1.0.4
 
 [ZaloPay](https://zalopay.vn) - Pay in 2 seconds
 
@@ -196,5 +196,15 @@ function callbackGetUserInfo(data) {
             alert("Unknown exception" + JSON.stringify(data.data));
         }
     }
+}
+```
+
+(function) isSSOSupported: check if SSO is supported
+
+```javascript
+if (ZaloPay.isSSOSupported("app-id")) {
+    // Trigger OAuth2/SSO flow
+} else {
+    // Go with old flow
 }
 ```
