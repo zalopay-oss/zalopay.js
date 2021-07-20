@@ -1,34 +1,41 @@
-# zalopay v1.0.3
+# zalopay v1.0.4
 
 [ZaloPay](https://zalopay.vn) - Pay in 2 seconds
 
 ## Install
 
 In a browser:
+
 ```html
+
 <script src="zalopay.min.js"></script>
 ```
 
 ## Example
 
 (boolean) isZaloPay
+
 ```js
-if(ZaloPay.isZaloPay) {
+if (ZaloPay.isZaloPay) {
     //TODO
 }
 ```
 
 (function) showLoading<br />
 (function) hideLoading
+
 ```js
 ZaloPay.showLoading();
 setTimeout(
-    function() { ZaloPay.hideLoading(); },
+    function () {
+        ZaloPay.hideLoading();
+    },
     3000
 );
 ```
 
 (function) showDialog
+
 ```js
 ZaloPay.showDialog({
     title: "ZaloPay",
@@ -38,6 +45,7 @@ ZaloPay.showDialog({
 ```
 
 (function) showToast
+
 ```js
 ZaloPay.showToast({
     message: "ZaloPay showToast"
@@ -45,6 +53,7 @@ ZaloPay.showToast({
 ```
 
 (function) showTooltip
+
 ```js
 ZaloPay.showTooltip({
     message: "ZaloPay showTooltip",
@@ -55,6 +64,7 @@ ZaloPay.showTooltip({
 ```
 
 (function) pushView
+
 ```js
 ZaloPay.pushView({
     url: "https://zalopay.vn/"
@@ -63,6 +73,7 @@ ZaloPay.pushView({
 
 (function) share<br />
 {type} int[1: screenshot | 2: message]
+
 ```js
 ZaloPay.share({
     type: 1,
@@ -72,22 +83,25 @@ ZaloPay.share({
 ```
 
 (function) closeWindow
+
 ```js
 ZaloPay.closeWindow();
 ```
 
 (function) transferMoney
+
 ```js
 ZaloPay.transferMoney({
     zpid: "cuongbm2",
     amount: 20000,
     message: "Transaction_171231_1"
 }, callback);
+
 function callback(data) {
-    if(typeof data === "object") {
-        if(data.error === 1) {
+    if (typeof data === "object") {
+        if (data.error === 1) {
             alert("Zalo Pay Callback: transferMoney Successed");
-        } else if(data.error === 4) {
+        } else if (data.error === 4) {
             alert("Zalo Pay Callback: User Canceled");
         } else {
             alert("Zalo Pay Callback: transferMoney Failed with code " + data.errorCode);
@@ -97,6 +111,7 @@ function callback(data) {
 ```
 
 (function) payOrder with full order information
+
 ```js
 ZaloPay.payOrder({
     appid: 3,
@@ -112,6 +127,7 @@ ZaloPay.payOrder({
 ```
 
 (function) payOrder with minify order information
+
 ```js
 ZaloPay.payOrder({
     appid: 3,
@@ -120,6 +136,7 @@ ZaloPay.payOrder({
 ```
 
 (function) promotionEvent: open another apps
+
 ```js
 ZaloPay.promotionEvent({
     campaignId: 1,
@@ -128,11 +145,12 @@ ZaloPay.promotionEvent({
     alternateUrl: "https://vng.com.vn"
     deeplinks: (optional) "{deeplinksURL}"
 }, callback);
+
 function callback(data) {
-    if(typeof data === "object") {
-        if(data.code === 1) {
+    if (typeof data === "object") {
+        if (data.code === 1) {
             console.log("Success");
-        } else if(data.code === 0 || data.code === -1) {
+        } else if (data.code === 0 || data.code === -1) {
             console.log("Not exist app");
         } else {
             console.log("Unknown exception");
@@ -142,6 +160,7 @@ function callback(data) {
 ```
 
 (function) promotionEvent: open Zalo Pay apps
+
 ```js
 
 ZaloPay.promotionEvent({
@@ -150,11 +169,12 @@ ZaloPay.promotionEvent({
     alternateUrl: "https://vng.com.vn",
     deeplinks: (optional) "{deeplinksURL}"
 }, callback);
+
 function callback(data) {
-    if(typeof data === "object") {
-        if(data.code === 1) {
+    if (typeof data === "object") {
+        if (data.code === 1) {
             console.log("Success");
-        } else if(data.code === 0 || data.code === -1) {
+        } else if (data.code === 0 || data.code === -1) {
             console.log("Not exist app");
         } else {
             console.log("Unknown exception");
@@ -164,6 +184,7 @@ function callback(data) {
 ```
 
 (function) setProperty: set color and background color for navigator
+
 ```js
 ZaloPay.setProperty({
     navigation: {
@@ -173,28 +194,42 @@ ZaloPay.setProperty({
 ```
 
 (function) setToolbarActions: set icon action in navigator
+
 ```js
 ZaloPay.setToolbarActions([
-    { iconId: "clickIcon1", iconName: "personal_settingaccount", iconColor: "#000000" },
-    { iconId: "clickIcon2", iconLink: "https://cdn0.iconfinder.com/data/icons/entypo/92/button2-48.png" }
+    {iconId: "clickIcon1", iconName: "personal_settingaccount", iconColor: "#000000"},
+    {iconId: "clickIcon2", iconLink: "https://cdn0.iconfinder.com/data/icons/entypo/92/button2-48.png"}
 ], navigatorAction);
+
 function navigatorAction(type) {
     alert(JSON.stringify(type));
 }
 ```
 
 (function) getUserInfo: get user info of ZaloPay
+
 ```js
 ZaloPay.getUserInfo(
     appid, callbackGetUserInfo
 );
+
 function callbackGetUserInfo(data) {
-    if(typeof data === "object") {
-        if(data.error === 1) {
+    if (typeof data === "object") {
+        if (data.error === 1) {
             alert("Success UserInfo: " + JSON.stringify(data.data));
         } else {
             alert("Unknown exception" + JSON.stringify(data.data));
         }
     }
+}
+```
+
+(function) isSSOSupported: check if SSO is supported
+
+```javascript
+if (ZaloPay.isSSOSupported("app-id")) {
+    // Trigger OAuth2/SSO flow
+} else {
+    // Go with old flow
 }
 ```

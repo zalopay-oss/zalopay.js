@@ -41,8 +41,8 @@
         var args = [].slice.call(arguments);
         if (window.ZaloPayJSBridge && window.ZaloPayJSBridge.call) {
             var name = args[0],
-                    opt = args[1] || {},
-                    cb = args[2];
+                opt = args[1] || {},
+                cb = args[2];
             if (!isStr(name)) {
                 writeLog("error", "ZaloPay.call", "Request undefined function!");
                 return;
@@ -204,7 +204,7 @@
         }
         writeLog("error", "ZaloPay.pushView", "Received missing require param!");
     };
-    
+
     /**
      * ZaloPay.share({
      *    type: 1,
@@ -219,7 +219,7 @@
             writeLog("error", "ZaloPay.share", "Received invalid object");
             return;
         }
-        if (isNumber(opt.type) &&  isStr(opt.caption) && isStr(opt.content)) {
+        if (isNumber(opt.type) && isStr(opt.caption) && isStr(opt.content)) {
             opt = {
                 type: opt.type,
                 caption: opt.caption,
@@ -390,9 +390,21 @@
                 } else {
                     if (isStr(v.iconName)) {
                         if (isStr(v.iconColor)) {
-                            options.push({iconId: v.iconId, func: cb.name, iconLink: "", iconName: v.iconName, iconColor: v.iconColor});
+                            options.push({
+                                iconId: v.iconId,
+                                func: cb.name,
+                                iconLink: "",
+                                iconName: v.iconName,
+                                iconColor: v.iconColor
+                            });
                         } else {
-                            options.push({iconId: v.iconId, func: cb.name, iconLink: "", iconName: v.iconName, iconColor: ""});
+                            options.push({
+                                iconId: v.iconId,
+                                func: cb.name,
+                                iconLink: "",
+                                iconName: v.iconName,
+                                iconColor: ""
+                            });
                         }
                     }
                 }
@@ -415,7 +427,7 @@
             return;
         }
         writeLog("info", "ZaloPay.getUserInfo", "Received UserInfo in function callback");
-        ZaloPay.call("getUserInfo", {appid:appid}, cb);
+        ZaloPay.call("getUserInfo", {appid: appid}, cb);
     };
 
     ZaloPay.requestAnimationFrame = function (cb) {
@@ -426,6 +438,10 @@
             writeLog("error", "ZaloPay.requestAnimationFrame", "Not supported!");
         }
     };
+
+    ZaloPay.isSSOSupported = function (appid) {
+        return ZaloPay.isZaloPay && compareVersion("6.6.0") > 0
+    }
 
     ZaloPay._ready(function () {
         writeLog("info", "ZaloPayJS Ready!");
@@ -439,6 +455,7 @@
                     next();
             });
         }
+
         !!apiQueue.length && next();
     });
 
@@ -544,5 +561,6 @@
         }
         return 0;
     }
+
     return ZaloPay;
 }));
